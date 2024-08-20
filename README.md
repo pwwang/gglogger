@@ -52,3 +52,7 @@ env$mpg <- mpg
 env$mpg$hwy <- mpg$hwy / 2
 p$logs$evaluate(env)
 ```
+
+## Limitations
+
+`gglogger` cannot log the global settings used to create a plot, such as `theme_set()`. It can only log the calls used directly to create the plot itself.
