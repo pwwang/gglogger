@@ -54,7 +54,7 @@
 </div>
 <p><code>gglogger</code> is an R package that logs the calls used to create <code>ggplot2</code> objects.</p>
 <p>This can be useful for debugging, reproducibility, and understanding the sequence of operations used to build a plot.</p>
-<p>Have you ever created a plot in <code>ggplot2</code> and then forgotten how you made it? Or wanted to reproduce a plot but couldn’t remember the exact sequence of operations you used? <code>gglogger</code> can help!</p>
+<blockquote><p>Have you ever created a plot in <code>ggplot2</code> and then forgotten how you made it? Or wanted to reproduce a plot but couldn’t remember the exact sequence of operations you used? <code>gglogger</code> can help!</p></blockquote>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -149,7 +149,7 @@
 <div class="section level2">
 <h2 id="limitations">Limitations<a class="anchor" aria-label="anchor" href="#limitations"></a>
 </h2>
-<p><code>gglogger</code> cannot log the global settings used to create a plot, such as <code><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">theme_set()</a></code>. It can only log the calls used directly to create the plot itself.</p>
+<p><code>gglogger</code> cannot log the global settings used to create a plot, such as <code><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">theme_set()</a></code>. It can only log the calls used directly to create the plot itself. You may need to manually set these global settings when reproducing a plot, or prepare them using the <code>setup</code> argument in <code>gen_code()</code>.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
