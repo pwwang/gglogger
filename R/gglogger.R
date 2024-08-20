@@ -14,7 +14,7 @@ GGLogs <- setRefClass(
     evaluate = function(env = parent.frame()) {
       objs <- lapply(logs, function(log) log$evaluate(env))
       p <- Reduce(function(x, y) x + y, objs)
-      p$logs <- NULL
+      p$logs <- .self
       return(p)
     }
   )
