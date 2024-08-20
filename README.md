@@ -107,4 +107,4 @@ cat(code)
 
 ## Limitations
 
-`gglogger` cannot log the global settings used to create a plot, such as `theme_set()`. It can only log the calls used directly to create the plot itself.
+`gglogger` cannot log the global settings used to create a plot, such as `theme_set()`. It can only log the calls used directly to create the plot itself. You may need to manually set these global settings when reproducing a plot, or prepare them using the `setup` argument in `gen_code()`.
