@@ -93,6 +93,9 @@ register <- function(f) {
 
     call <- substitute(f(...))
     call[[1]] <- as.symbol(fn)
+    if (length(call) > 1 && length(call[[2]]) == 1 && identical(as.character(call[[2]]), ".")) {
+      warning("'.' is detected as the data of the ggplot call. Did you use `%>%` to pipe data instead of `|>`?")
+    }
     d <- deparse(call)
     if (grepl("::", fn, fixed = TRUE)) {
       d <- sub("`", "", d, fixed = TRUE)
