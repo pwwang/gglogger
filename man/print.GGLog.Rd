@@ -8,6 +8,8 @@
 }
 \arguments{
 \item{x}{A GGLog object.}
+
+\item{...}{Additional arguments.}
 }
 \description{
 Print a GGLog object

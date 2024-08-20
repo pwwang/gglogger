@@ -1,4 +1,5 @@
 #' @import ggplot2
+#' @importFrom methods new
 NULL
 
 #' @title GGLogs class
@@ -127,9 +128,11 @@ ggplot <- register(ggplot2::ggplot)
   # Get the name of what was passed in as e2, and pass along so that it
   # can be displayed in error messages
   e2name <- deparse(substitute(e2))
+  add_theme <- utils::getFromNamespace("add_theme", "ggplot2")
+  add_ggplot <- utils::getFromNamespace("add_ggplot", "ggplot2")
 
-  if      (ggplot2::is.theme(e1))  p <- ggplot2:::add_theme(e1, e2, e2name)
-  else if (ggplot2::is.ggplot(e1)) p <- ggplot2:::add_ggplot(e1, e2, e2name)
+  if      (ggplot2::is.theme(e1))  p <- add_theme(e1, e2, e2name)
+  else if (ggplot2::is.ggplot(e1)) p <- add_ggplot(e1, e2, e2name)
   else if (ggplot2::is.ggproto(e1)) {
     cli::cli_abort(c(
       "Cannot add {.cls ggproto} objects together.",
@@ -147,6 +150,7 @@ ggplot <- register(ggplot2::ggplot)
 #' Print a GGLogs object
 #'
 #' @param x A GGLogs object.
+#' @param ... Additional arguments.
 #'
 #' @export
 print.GGLogs <- function(x, ...) {
@@ -156,6 +160,7 @@ print.GGLogs <- function(x, ...) {
 #' Print a GGLog object
 #'
 #' @param x A GGLog object.
+#' @param ... Additional arguments.
 #'
 #' @export
 print.GGLog <- function(x, ...) {

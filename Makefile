@@ -1,4 +1,4 @@
-SHELL := /bin/bash
+SHELL = /bin/bash
 
 readme:
 	Rscript <(echo "devtools::build_readme()")
