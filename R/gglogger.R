@@ -96,7 +96,7 @@ ggplot <- function(...) {
   # can be displayed in error messages
   e2name <- deparse(substitute(e2))
 
-  if      (ggplot2::is.theme(e1))  p <- ggplot2::add_theme(e1, e2, e2name)
+  if      (ggplot2::is.theme(e1))  p <- ggplot2:::add_theme(e1, e2, e2name)
   else if (ggplot2::is.ggplot(e1)) p <- ggplot2:::add_ggplot(e1, e2, e2name)
   else if (ggplot2::is.ggproto(e1)) {
     cli::cli_abort(c(
