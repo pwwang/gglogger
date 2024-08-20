@@ -1,0 +1,4 @@
+url: https://pwwang.github.io/gglogger/
+template:
+  bootstrap: 5
+  bootswatch: lumen

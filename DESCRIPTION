@@ -1,0 +1,11 @@
+Package: gglogger
+Type: Package
+Title: A Package to Log ggplot2 Calls
+Version: 0.1.0
+Author: Panwen Wang
+Maintainer: Panwen Wang <pwwang@pwwang.com>
+Description: This package logs the calls used to create ggplot2 objects.
+License: MIT
+Imports: ggplot2
+RoxygenNote: 7.3.2
+Encoding: UTF-8
