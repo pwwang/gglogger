@@ -61,15 +61,20 @@
 <p>@param log A GGLog object.</p></dd>
 
 
-<dt><code>evaluate(env = parent.frame())</code></dt>
+<dt><code>evaluate(envir = parent.frame())</code></dt>
 <dd><p>Evaluate all logs in the list.</p>
-<p>@param env The environment to evaluate the logs in.</p></dd>
+<p>@param envir The environment to evaluate the logs in.</p></dd>
 
 
 <dt><code>gen_code(setup = "library(ggplot2)")</code></dt>
 <dd><p>Generate code for all logs in the list.</p>
 <p>@param setup A string to setup the environment.</p>
 <p>@return A string of code.</p></dd>
+
+
+<dt><code>stringify()</code></dt>
+<dd><p>Stringify all logs in the list.</p>
+<p>@return A string.</p></dd>
 
 
 </dl></div>
