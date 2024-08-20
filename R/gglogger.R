@@ -53,8 +53,27 @@ ggplot <- function(...) {
 #' @return A ggplot object with logged calls.
 #' @export
 `+.gg` <- function(e1, e2) {
-  p <- ggplot2::`%+%`(e1, e2)
-  if (!is.null(p$logs)) {
+  if (missing(e2)) {
+    cli::cli_abort(c(
+            "Cannot use {.code +} with a single argument.",
+      "i" = "Did you accidentally put {.code +} on a new line?"
+    ))
+  }
+
+  # Get the name of what was passed in as e2, and pass along so that it
+  # can be displayed in error messages
+  e2name <- deparse(substitute(e2))
+
+  if      (ggplot2::is.theme(e1))  p <- ggplot2::add_theme(e1, e2, e2name)
+  else if (ggplot2::is.ggplot(e1)) p <- ggplot2:::add_ggplot(e1, e2, e2name)
+  else if (ggplot2::is.ggproto(e1)) {
+    cli::cli_abort(c(
+      "Cannot add {.cls ggproto} objects together.",
+      "i" = "Did you forget to add this object to a {.cls ggplot} object?"
+    ))
+  }
+  if (!is.null(e1$logs)) {
+    p$logs <- e1$logs
     log <- GGLog$new(code = deparse(substitute(e2)))
     p$logs$add(log)
   }

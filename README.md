@@ -52,7 +52,3 @@ env$mpg <- mpg
 env$mpg$hwy <- mpg$hwy / 2
 p$logs$evaluate(env)
 ```
-
-## Limitations
-
-`gglogger` currently only works for the plots created by `+` operator.

@@ -89,3 +89,23 @@ test_that("gglogger evaluate works", {
     expect_equal(rlang::as_label(q$layers[[1]]$mapping$x), "displ")
     expect_equal(rlang::as_label(q$layers[[1]]$mapping$y), "hwy")
 })
+
+# test evaluate with custom environment
+test_that("gglogger evaluate works with custom environment", {
+    mpg <- ggplot2::mpg
+    p <- ggplot(mpg) + geom_point(aes(x = displ, y = hwy))
+    env <- new.env()
+    env$mpg <- mpg
+    env$mpg$displ[1] <- 1.9
+    env$mpg$hwy[1] <- 30
+    q <- p$logs$evaluate(env)
+    expect_is(q, "gg")
+    expect_is(q$data, "data.frame")
+    expect_equal(nrow(q$data), 234)
+    expect_equal(ncol(q$data), 11)
+    expect_equal(q$data$displ[1], 1.9)
+    expect_equal(q$data$hwy[1], 30)
+    expect_is(q$layers[[1]]$geom, "GeomPoint")
+    expect_equal(rlang::as_label(q$layers[[1]]$mapping$x), "displ")
+    expect_equal(rlang::as_label(q$layers[[1]]$mapping$y), "hwy")
+})
