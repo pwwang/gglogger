@@ -17,8 +17,12 @@ The `GGLog` class is used to store a single ggplot call.
 \section{Methods}{
 
 \describe{
-\item{\code{evaluate(env = parent.frame())}}{Evaluate the log.
+\item{\code{evaluate(envir = parent.frame())}}{Evaluate the log.
 
-      @param env The environment to evaluate the log in.}
+      @param envir The environment to evaluate the log in.}
+
+\item{\code{stringify()}}{Stringify the log.
+
+      @return A string.}
 }}
 

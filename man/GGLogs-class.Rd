@@ -23,14 +23,18 @@ The `GGLogs` class is used to store logs of ggplot calls.
 
         @param log A GGLog object.}
 
-\item{\code{evaluate(env = parent.frame())}}{Evaluate all logs in the list.
+\item{\code{evaluate(envir = parent.frame())}}{Evaluate all logs in the list.
 
-      @param env The environment to evaluate the logs in.}
+      @param envir The environment to evaluate the logs in.}
 
 \item{\code{gen_code(setup = "library(ggplot2)")}}{Generate code for all logs in the list.
 
       @param setup A string to setup the environment.
 
       @return A string of code.}
+
+\item{\code{stringify()}}{Stringify all logs in the list.
+
+      @return A string.}
 }}
 

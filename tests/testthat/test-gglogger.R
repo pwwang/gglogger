@@ -3,7 +3,7 @@ test_that("gglogger works with ggplot only", {
     expect_is(p, "gg")
     expect_is(p$logs, "GGLogs")
     expect_equal(length(p$logs$logs), 1)
-    expect_equal(p$logs$logs[[1]]$code, "ggplot()")
+    expect_equal(p$logs$logs[[1]]$code, "ggplot2::ggplot()")
 })
 
 test_that("gglogger works with ggplot and layers", {
@@ -11,7 +11,7 @@ test_that("gglogger works with ggplot and layers", {
     expect_is(p, "gg")
     expect_is(p$logs, "GGLogs")
     expect_equal(length(p$logs$logs), 2)
-    expect_equal(p$logs$logs[[1]]$code, "ggplot()")
+    expect_equal(p$logs$logs[[1]]$code, "ggplot2::ggplot()")
     expect_equal(p$logs$logs[[2]]$code, "geom_point()")
 })
 
@@ -20,7 +20,7 @@ test_that("gglogger works with ggplot and layers and themes", {
     expect_is(p, "gg")
     expect_is(p$logs, "GGLogs")
     expect_equal(length(p$logs$logs), 3)
-    expect_equal(p$logs$logs[[1]]$code, "ggplot()")
+    expect_equal(p$logs$logs[[1]]$code, "ggplot2::ggplot()")
     expect_equal(p$logs$logs[[2]]$code, "geom_point()")
     expect_equal(p$logs$logs[[3]]$code, "theme_minimal()")
 })
@@ -30,7 +30,7 @@ test_that("gglogger works with ggplot and layers and themes and facets", {
     expect_is(p, "gg")
     expect_is(p$logs, "GGLogs")
     expect_equal(length(p$logs$logs), 4)
-    expect_equal(p$logs$logs[[1]]$code, "ggplot()")
+    expect_equal(p$logs$logs[[1]]$code, "ggplot2::ggplot()")
     expect_equal(p$logs$logs[[2]]$code, "geom_point()")
     expect_equal(p$logs$logs[[3]]$code, "theme_minimal()")
     expect_equal(p$logs$logs[[4]]$code, "facet_wrap(~cyl)")
@@ -41,7 +41,7 @@ test_that("gglogger works with ggplot and layers and themes and facets and scale
     expect_is(p, "gg")
     expect_is(p$logs, "GGLogs")
     expect_equal(length(p$logs$logs), 5)
-    expect_equal(p$logs$logs[[1]]$code, "ggplot()")
+    expect_equal(p$logs$logs[[1]]$code, "ggplot2::ggplot()")
     expect_equal(p$logs$logs[[2]]$code, "geom_point()")
     expect_equal(p$logs$logs[[3]]$code, "theme_minimal()")
     expect_equal(p$logs$logs[[4]]$code, "facet_wrap(~cyl)")
@@ -53,7 +53,7 @@ test_that("gglogger works with ggplot and layers and themes and facets and scale
     expect_is(p, "gg")
     expect_is(p$logs, "GGLogs")
     expect_equal(length(p$logs$logs), 6)
-    expect_equal(p$logs$logs[[1]]$code, "ggplot()")
+    expect_equal(p$logs$logs[[1]]$code, "ggplot2::ggplot()")
     expect_equal(p$logs$logs[[2]]$code, "geom_point()")
     expect_equal(p$logs$logs[[3]]$code, "theme_minimal()")
     expect_equal(p$logs$logs[[4]]$code, "facet_wrap(~cyl)")
@@ -66,7 +66,7 @@ test_that("gglogger works with ggplot and layers and themes and facets and scale
     expect_is(p, "gg")
     expect_is(p$logs, "GGLogs")
     expect_equal(length(p$logs$logs), 7)
-    expect_equal(p$logs$logs[[1]]$code, "ggplot()")
+    expect_equal(p$logs$logs[[1]]$code, "ggplot2::ggplot()")
     expect_equal(p$logs$logs[[2]]$code, "geom_point()")
     expect_equal(p$logs$logs[[3]]$code, "theme_minimal()")
     expect_equal(p$logs$logs[[4]]$code, "facet_wrap(~cyl)")
@@ -114,5 +114,24 @@ test_that("gglogger evaluate works with custom environment", {
 test_that("gglogger gen_code works", {
     p <- ggplot(ggplot2::mpg) + geom_point(aes(x = displ, y = hwy))
     code <- p$logs$gen_code()
-    expect_equal(code, "library(ggplot2)\n\nggplot(ggplot2::mpg) +\n  geom_point(aes(x = displ, y = hwy))")
+    expect_equal(code, "library(ggplot2)\n\nggplot2::ggplot(ggplot2::mpg) +\n  geom_point(aes(x = displ, y = hwy))\n")
+})
+
+# test stringify
+test_that("gglogger stringify works", {
+    p <- ggplot(ggplot2::mpg) + geom_point(aes(x = displ, y = hwy))
+    code <- p$logs$stringify()
+    expect_equal(code, "ggplot2::ggplot(ggplot2::mpg) +\n  geom_point(aes(x = displ, y = hwy))")
+})
+
+# test register
+test_that("gglogger register works", {
+    myggplot <- function(data) {
+        ggplot2::ggplot(data) + geom_point(aes(x = displ, y = hwy))
+    }
+    myggplot2 <- gglogger::register(myggplot)
+    p <- myggplot2(ggplot2::mpg)
+    expect_is(p, "gg")
+    expect_is(p$data, "data.frame")
+    expect_equal(p$logs$stringify(), "myggplot(ggplot2::mpg)")
 })

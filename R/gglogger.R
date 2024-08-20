@@ -22,13 +22,25 @@ GGLogs <- setRefClass(
         logs <<- c(logs, log)
     },
 
-    evaluate = function(env = parent.frame()) {
+    evaluate = function(envir = parent.frame()) {
       "Evaluate all logs in the list.\n
-      @param env The environment to evaluate the logs in."
-      objs <- lapply(logs, function(log) log$evaluate(env))
+      @param envir The environment to evaluate the logs in."
+      objs <- lapply(logs, function(log) log$evaluate(envir))
       p <- Reduce(function(x, y) x + y, objs)
       p$logs <- .self
       return(p)
+    },
+
+    stringify = function() {
+      "Stringify all logs in the list.\n
+      @return A string."
+      out <- c()
+      for (i in seq_along(logs)) {
+        prefix <- ifelse(i == 1, "", "  ")
+        suffix <- ifelse(i == length(logs), "", " +")
+        out <- c(out, paste0(prefix, logs[[i]]$stringify(), suffix))
+      }
+      paste(out, collapse = "\n")
     },
 
     gen_code = function(setup = "library(ggplot2)") {
@@ -36,12 +48,7 @@ GGLogs <- setRefClass(
       @param setup A string to setup the environment.\n
       @return A string of code."
       code <- paste(setup, collapse = "\n")
-      code <- paste0(code, "\n")
-      for (i in seq_along(logs)) {
-        prefix <- ifelse(i == 1, "", "  ")
-        suffix <- ifelse(i == length(logs), "", " +")
-        code <- paste0(code, "\n", prefix, logs[[i]]$code, suffix)
-      }
+      code <- paste0(code, "\n\n", .self$stringify(), "\n")
       code
     }
   )
@@ -57,26 +64,51 @@ GGLog <- setRefClass(
     code = "character"
   ),
   methods = list(
-    evaluate = function(env = parent.frame()) {
+    evaluate = function(envir = parent.frame()) {
       "Evaluate the log.\n
-      @param env The environment to evaluate the log in."
-      eval(parse(text = code), envir = env)
+      @param envir The environment to evaluate the log in."
+      eval(parse(text = code), envir = envir)
+    },
+    stringify = function() {
+      "Stringify the log.\n
+      @return A string."
+      paste0(code, collapse = "\n")
     }
   )
 )
+
+#' Register a function that returns a ggplot object
+#' This is usually implemented by ggplot extensions.
+#'
+#' @param f A function that returns a ggplot object.
+#' @return A function that returns a ggplot object with logged calls.
+#'
+#' @export
+register <- function(f) {
+  fn <- deparse(substitute(f))
+  function(...) {
+    p <- f(...)
+    if (is.null(p$logs)) p$logs <- GGLogs$new(logs = list())
+
+    call <- substitute(f(...))
+    call[[1]] <- as.symbol(fn)
+    d <- deparse(call)
+    if (grepl("::", fn, fixed = TRUE)) {
+      d <- sub("`", "", d, fixed = TRUE)
+      d <- sub("`", "", d, fixed = TRUE)
+    }
+    log <- GGLog$new(code = d)
+    p$logs$add(log)
+    return(p)
+  }
+}
 
 #' Override ggplot function to log calls
 #'
 #' @param ... Arguments passed to ggplot2::ggplot.
 #' @return A ggplot object with logged calls.
 #' @export
-ggplot <- function(...) {
-  p <- ggplot2::ggplot(...)
-  if (is.null(p$logs)) p$logs <- GGLogs$new(logs = list())
-  log <- GGLog$new(code = deparse(substitute(ggplot(...))))
-  p$logs$add(log)
-  return(p)
-}
+ggplot <- register(ggplot2::ggplot)
 
 #' Override + operator for ggplot objects to log calls
 #'
@@ -118,11 +150,7 @@ ggplot <- function(...) {
 #'
 #' @export
 print.GGLogs <- function(x, ...) {
-  for (i in seq_along(x$logs)) {
-    prefix <- ifelse(i == 1, "", "  ")
-    suffix <- ifelse(i == length(x$logs), "", "+")
-    cat(prefix, x$logs[[i]]$code, suffix, "\n")
-  }
+  cat(x$stringify(), "\n")
 }
 
 #' Print a GGLog object
@@ -131,5 +159,5 @@ print.GGLogs <- function(x, ...) {
 #'
 #' @export
 print.GGLog <- function(x, ...) {
-  cat(x$code, "\n")
+  cat(x$stringify(), "\n")
 }
