@@ -7,3 +7,5 @@
 ^vignettes/articles$
 ^nohup\.out$
 ^\.github$
+^cran-comments\.md$
+^CRAN-SUBMISSION$
