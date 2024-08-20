@@ -11,9 +11,6 @@ This can be useful for debugging, reproducibility, and understanding the sequenc
 You can install the `gglogger` package from source using `devtools`:
 
 ```r
-install.packages("gglogger")
-
-# or
 devtools::install_github("pwwang/gglogger")
 
 # or
