@@ -1,4 +1,4 @@
-# gglogger
+# gglogger <a href="https://pwwang.github.io/gglogger/"><img src="man/figures/logo.png" align="right" height="134" alt="gglogger website" /></a>
 
 `gglogger` is an R package that logs the calls used to create `ggplot2` objects.
 
@@ -34,7 +34,7 @@ p <- ggplot(mpg, aes(x = displ, y = hwy)) + geom_point()
 # Print the logs
 print(p$logs)
 
-## ggplot(mpg, aes(x = displ, y = hwy)) +
+## ggplot2::ggplot(mpg, aes(x = displ, y = hwy)) +
 ##   geom_point()
 ```
 
@@ -51,6 +51,58 @@ env <- new.env()
 env$mpg <- mpg
 env$mpg$hwy <- mpg$hwy / 2
 p$logs$evaluate(env)
+```
+
+## Registering a function from a ggplot2 extension
+
+```r
+library(dplyr)
+library(gglogger)
+
+mtcars_radar <- mtcars %>%
+  as_tibble(rownames = "group") %>%
+  mutate_at(vars(-group), scales::rescale) %>%
+  tail(4) %>%
+  select(1:10)
+
+ggradar <- register(ggradar::ggradar)
+
+p <- ggradar(mtcars_radar, legend.position = "right")
+print(p$logs)
+
+# ggradar::ggradar(mtcars_radar, legend.position = "right")
+```
+
+## Generating code to reproduce a plot
+
+```r
+# p is a ggradar plot created in the previous example
+
+code <- p$logs$gen_code(setup = '
+library(dplyr)
+library(ggradar)
+
+mtcars_radar <- mtcars %>%
+  as_tibble(rownames = "group") %>%
+  mutate_at(vars(-group), scales::rescale) %>%
+  tail(4) %>%
+  select(1:10)
+')
+
+cat(code)
+## library(dplyr)
+## library(ggradar)
+##
+## mtcars_radar <- mtcars %>%
+##   as_tibble(rownames = "group") %>%
+##   mutate_at(vars(-group), scales::rescale) %>%
+##   tail(4) %>%
+##   select(1:10)
+##
+##
+## ggradar::ggradar(mtcars_radar, legend.position = "right")
+
+# eval(parse(text = code)) # to reproduce the plot
 ```
 
 ## Limitations
