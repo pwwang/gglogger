@@ -24,21 +24,43 @@ remotes::install_github("pwwang/gglogger")
 
 To use the `gglogger` package, simply load it along with `ggplot2` and create your plots as usual. The package will automatically log the calls used to create the plots.
 
+<table>
+    <tr>
+        <th>Previous</th>
+        <th>Now</th>
+    </tr>
+    <tr>
+        <td>
+
+
 ```r
 library(ggplot2)
-# Note: gglogger must be loaded after ggplot2
-library(gglogger)
-# Otherwise, you can use the gglogger::ggplot function to create plots
 
-# Create a ggplot object and add a layer
-p <- ggplot(mpg, aes(x = displ, y = hwy)) + geom_point()
+p <- ggplot(mpg, aes(x = displ, y = hwy)) +
+    geom_point()
+```
+
+</td>
+<td>
+
+
+```r
+library(ggplot2)
+# Just add gglogger after ggplot2
+library(gglogger)
+
+p <- ggplot(mpg, aes(x = displ, y = hwy)) +
+    geom_point()
 
 # Print the logs
 print(p$logs)
-
 ## ggplot2::ggplot(mpg, aes(x = displ, y = hwy)) +
 ##   geom_point()
 ```
+
+</td>
+</tr>
+</table>
 
 Evaluate the code in logs to reproduce the plot:
 
