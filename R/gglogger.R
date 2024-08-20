@@ -1,26 +1,56 @@
 #' @import ggplot2
 NULL
 
-# Define a custom class for logs
+#' @title GGLogs class
+#' @description The `GGLogs` class is used to store logs of ggplot calls.
+#'   Each log is stored as a `GGLog` object.
+#'   The object can be accessed using the `$logs` field from a ggplot object.
+#' @field logs A list to store the logs.
+#' @export
 GGLogs <- setRefClass(
   "GGLogs",
+
   fields = list(
     logs = "list"
   ),
+
   methods = list(
+
     add = function(log) {
-      logs <<- c(logs, log)
+        "Add a log to the list.\n
+        @param log A GGLog object."
+        logs <<- c(logs, log)
     },
+
     evaluate = function(env = parent.frame()) {
+      "Evaluate all logs in the list.\n
+      @param env The environment to evaluate the logs in."
       objs <- lapply(logs, function(log) log$evaluate(env))
       p <- Reduce(function(x, y) x + y, objs)
       p$logs <- .self
       return(p)
+    },
+
+    gen_code = function(setup = "library(ggplot2)") {
+      "Generate code for all logs in the list.\n
+      @param setup A string to setup the environment.\n
+      @return A string of code."
+      code <- paste(setup, collapse = "\n")
+      code <- paste0(code, "\n")
+      for (i in seq_along(logs)) {
+        prefix <- ifelse(i == 1, "", "  ")
+        suffix <- ifelse(i == length(logs), "", " +")
+        code <- paste0(code, "\n", prefix, logs[[i]]$code, suffix)
+      }
+      code
     }
   )
 )
 
-# Define a custom class for log
+#' @title GGLog class
+#' @description The `GGLog` class is used to store a single ggplot call.
+#' @field code A string to store the code of the ggplot call.
+#' @export
 GGLog <- setRefClass(
   "GGLog",
   fields = list(
@@ -28,6 +58,8 @@ GGLog <- setRefClass(
   ),
   methods = list(
     evaluate = function(env = parent.frame()) {
+      "Evaluate the log.\n
+      @param env The environment to evaluate the log in."
       eval(parse(text = code), envir = env)
     }
   )

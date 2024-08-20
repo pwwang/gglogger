@@ -109,3 +109,10 @@ test_that("gglogger evaluate works with custom environment", {
     expect_equal(rlang::as_label(q$layers[[1]]$mapping$x), "displ")
     expect_equal(rlang::as_label(q$layers[[1]]$mapping$y), "hwy")
 })
+
+# test gen_code
+test_that("gglogger gen_code works", {
+    p <- ggplot(ggplot2::mpg) + geom_point(aes(x = displ, y = hwy))
+    code <- p$logs$gen_code()
+    expect_equal(code, "library(ggplot2)\n\nggplot(ggplot2::mpg) +\n  geom_point(aes(x = displ, y = hwy))")
+})
