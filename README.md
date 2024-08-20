@@ -4,7 +4,7 @@
 
 This can be useful for debugging, reproducibility, and understanding the sequence of operations used to build a plot.
 
-Have you ever created a plot in `ggplot2` and then forgotten how you made it? Or wanted to reproduce a plot but couldn't remember the exact sequence of operations you used? `gglogger` can help!
+> Have you ever created a plot in `ggplot2` and then forgotten how you made it? Or wanted to reproduce a plot but couldn't remember the exact sequence of operations you used? `gglogger` can help!
 
 ## Installation
 
