@@ -141,6 +141,8 @@ ggplot <- register(ggplot2::ggplot)
       "Cannot add {.cls ggproto} objects together.",
       "i" = "Did you forget to add this object to a {.cls ggplot} object?"
     ))
+  } else {
+    cli::cli_abort("Cannot add '{class(e2)}' to {class(e1)}.")
   }
   if (!is.null(e1$logs)) {
     p$logs <- e1$logs
