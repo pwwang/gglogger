@@ -1,7 +1,7 @@
 Package: gglogger
 Type: Package
 Title: A Package to Log ggplot2 Calls
-Version: 0.1.2
+Version: 0.1.3
 Author: Panwen Wang
 Maintainer: Panwen Wang <pwwang@pwwang.com>
 Description: This package logs the calls used to create ggplot2 objects.
