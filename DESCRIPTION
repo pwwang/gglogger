@@ -1,10 +1,11 @@
 Package: gglogger
 Type: Package
-Title: A Package to Log ggplot2 Calls
+Title: Log 'ggplot2' Calls
 Version: 0.1.3
-Author: Panwen Wang
-Maintainer: Panwen Wang <pwwang@pwwang.com>
-Description: This package logs the calls used to create ggplot2 objects.
+Authors@R:
+    person("Panwen", "Wang", , "pwwang@pwwang.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-4614-8970"))
+Description: Logs the calls used to create 'ggplot2' objects.
 License: MIT + file LICENSE
 Imports: ggplot2, cli, methods
 Suggests: rlang, testthat

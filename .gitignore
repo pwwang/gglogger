@@ -1,3 +1,6 @@
 /t.ipynb
 /docs/
 *.Rcheck/
+*.tar.gz
+cran-comments.md
+gglogger_*.tar.gz
