@@ -11,3 +11,4 @@
 ^.+\.Rcheck/.+$
 ^.+\.tar\.gz$
 ^.+\.ipynb$
+^Makefile$
