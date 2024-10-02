@@ -4,10 +4,10 @@ package:
 
 source:
   git_url: https://github.com/pwwang/gglogger
-  git_rev: 9b827b7e8336a12565e97ef6d2f3202b1daeaa5c # on 09/26/2024
+  git_rev: 99e9ace2f1bb9c24488f3ca8f933627c93e91219 # on 10/01/2024
 
 build:
-  number: 1
+  number: 2
   rpaths:
     - lib/R/lib/
     - lib/
