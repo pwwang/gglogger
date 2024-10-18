@@ -1,11 +1,14 @@
 Package: gglogger
 Type: Package
-Title: Log 'ggplot2' Calls
+Title: Track 'ggplot2' Calls
 Version: 0.1.4
 Authors@R:
     person("Panwen", "Wang", , "pwwang@pwwang.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-4614-8970"))
-Description: Logs the calls used to create 'ggplot2' objects.
+Description: Pprovides a way to log 'ggplot' component calls, which can be
+    useful for debugging and understanding how 'ggplot' objects are created.
+    The logged calls can be printed, saved, and re-executed to reproduce the
+    original ggplot object.
 License: MIT + file LICENSE
 Imports: ggplot2, cli, methods
 Suggests: rlang, testthat

@@ -156,18 +156,20 @@ ggplot <- register(ggplot2::ggplot)
 #'
 #' @param x A GGLogs object.
 #' @param ... Additional arguments.
-#'
+#' @method print GGLogs
+#' @value A string of the logs.
 #' @export
 print.GGLogs <- function(x, ...) {
-  cat(x$stringify(), "\n")
+  return(invisible(paste0(x$stringify(), "\n")))
 }
 
 #' Print a GGLog object
 #'
 #' @param x A GGLog object.
 #' @param ... Additional arguments.
-#'
+#' @method print GGLog
+#' @value A string of the log.
 #' @export
 print.GGLog <- function(x, ...) {
-  cat(x$stringify(), "\n")
+  return(invisible(paste0(x$stringify(), "\n")))
 }
