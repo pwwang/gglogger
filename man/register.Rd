@@ -5,7 +5,7 @@
 \title{Register a function that returns a ggplot object
 This is usually implemented by ggplot extensions.}
 \usage{
-register(f)
+register(f, name = NULL)
 }
 \arguments{
 \item{f}{A function that returns a ggplot object.}

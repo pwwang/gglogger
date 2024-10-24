@@ -82,17 +82,18 @@ GGLog <- setRefClass(
 #' This is usually implemented by ggplot extensions.
 #'
 #' @param f A function that returns a ggplot object.
+#' @param name A string to represent the name of the function.
 #' @return A function that returns a ggplot object with logged calls.
 #'
 #' @export
-register <- function(f) {
+register <- function(f, name = NULL) {
   fn <- deparse(substitute(f))
   function(...) {
     p <- f(...)
     if (is.null(p$logs)) p$logs <- GGLogs$new(logs = list())
 
     call <- substitute(f(...))
-    call[[1]] <- as.symbol(fn)
+    call[[1]] <- if (!is.null(name)) as.symbol(name) else as.symbol(fn)
     if (length(call) > 1 && length(call[[2]]) == 1 && identical(as.character(call[[2]]), ".")) {
       warning("'.' is detected as the data of the ggplot call. Did you use `%>%` to pipe data instead of `|>`?")
     }
