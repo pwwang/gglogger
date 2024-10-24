@@ -11,6 +11,9 @@
 
 \item{...}{Additional arguments.}
 }
+\value{
+Display the logs and invisibly return the logs.
+}
 \description{
 Print a GGLog object
 }

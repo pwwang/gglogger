@@ -158,10 +158,12 @@ ggplot <- register(ggplot2::ggplot)
 #' @param x A GGLogs object.
 #' @param ... Additional arguments.
 #' @method print GGLogs
-#' @value A string of the logs.
+#' @return Display the logs and invisibly return the logs.
 #' @export
 print.GGLogs <- function(x, ...) {
-  return(invisible(paste0(x$stringify(), "\n")))
+  logs <- paste0(x$stringify(), "\n")
+  cat(logs)
+  return(invisible(logs))
 }
 
 #' Print a GGLog object
@@ -169,8 +171,10 @@ print.GGLogs <- function(x, ...) {
 #' @param x A GGLog object.
 #' @param ... Additional arguments.
 #' @method print GGLog
-#' @value A string of the log.
+#' @return Display the logs and invisibly return the logs.
 #' @export
 print.GGLog <- function(x, ...) {
-  return(invisible(paste0(x$stringify(), "\n")))
+  log <- paste0(x$stringify(), "\n")
+  cat(log)
+  return(invisible(log))
 }
