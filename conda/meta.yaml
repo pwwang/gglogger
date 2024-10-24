@@ -7,7 +7,7 @@ source:
   git_rev: 0.1.5
 
 build:
-  number: 2
+  number: 1
   rpaths:
     - lib/R/lib/
     - lib/
