@@ -9,6 +9,8 @@ register(f, name = NULL)
 }
 \arguments{
 \item{f}{A function that returns a ggplot object.}
+
+\item{name}{A string to represent the name of the function.}
 }
 \value{
 A function that returns a ggplot object with logged calls.

@@ -1,7 +1,7 @@
 Package: gglogger
 Type: Package
 Title: Track 'ggplot2' Calls
-Version: 0.1.4
+Version: 0.1.5
 Authors@R:
     person("Panwen", "Wang", , "pwwang@pwwang.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-4614-8970"))
