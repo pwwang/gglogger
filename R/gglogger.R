@@ -104,6 +104,7 @@ register <- function(f, name = NULL) {
     }
     log <- GGLog$new(code = d)
     p$logs$add(log)
+    class(p) <- c(class(p), "gg_logs")
     return(p)
   }
 }
@@ -120,8 +121,8 @@ ggplot <- register(ggplot2::ggplot)
 #' @param e1 A ggplot object.
 #' @param e2 A layer to add to the ggplot object.
 #' @return A ggplot object with logged calls.
-#' @export
-`+.gg` <- function(e1, e2) {
+#' @keywords internal
+.add_gg <- function(e1, e2) {
   if (missing(e2)) {
     cli::cli_abort(c(
             "Cannot use {.code +} with a single argument.",
@@ -152,6 +153,13 @@ ggplot <- register(ggplot2::ggplot)
   }
   return(p)
 }
+
+#' Override + operator for ggplot objects to log calls
+#'
+#' @inheritParams .add_gg
+#' @return A ggplot object with logged calls.
+#' @eval if (utils::packageVersion("ggplot2") > "3.5.2") "@keywords internal" else "@export"
+`+.gg` <- .add_gg
 
 #' Print a GGLogs object
 #'

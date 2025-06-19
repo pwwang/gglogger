@@ -11,7 +11,7 @@ Description: Provides a way to log 'ggplot' component calls, which can be
     original 'ggplot' object.
 License: MIT + file LICENSE
 Imports: ggplot2, cli, methods
-Suggests: rlang, testthat
+Suggests: rlang, testthat, S7
 RoxygenNote: 7.3.2
 Encoding: UTF-8
 URL: https://github.com/pwwang/gglogger/

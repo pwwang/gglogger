@@ -1,13 +1,17 @@
 ^LICENSE\.md$
 ^pkgdown\/.+
+^pkgdown$
 ^vignettes/articles$
 ^CRAN-SUBMISSION$
 ^cran-comments\.md$
 ^docs/\.nojekyll$
 ^\.github\/.+
+^\.github$
 ^_pkgdown\.yml$
 ^conda\/.+
+^conda$
 ^docs\/.+
+^docs$
 ^.+\.Rcheck/.+$
 ^.+\.tar\.gz$
 ^.+\.ipynb$
