@@ -136,7 +136,7 @@ ggplot <- register(ggplot2::ggplot)
   add_theme <- utils::getFromNamespace("add_theme", "ggplot2")
   add_ggplot <- utils::getFromNamespace("add_ggplot", "ggplot2")
 
-  if      (ggplot2::is.theme(e1))  p <- add_theme(e1, e2, e2name)
+  if      (ggplot2::is_theme(e1))  p <- add_theme(e1, e2, e2name)
   else if (ggplot2::is.ggplot(e1)) p <- add_ggplot(e1, e2, e2name)
   else if (ggplot2::is.ggproto(e1)) {
     cli::cli_abort(c(
