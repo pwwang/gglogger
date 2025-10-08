@@ -17,3 +17,4 @@ A ggplot object with logged calls.
 \description{
 Override + operator for ggplot objects to log calls
 }
+\keyword{internal}
