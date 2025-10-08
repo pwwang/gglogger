@@ -1,10 +1,9 @@
 package:
   name: r-gglogger
-  version: 0.1.6
+  version: 0.1.7
 
 source:
-  git_url: https://github.com/pwwang/gglogger
-  git_rev: 0.1.6
+  path: ..
 
 build:
   number: 1
