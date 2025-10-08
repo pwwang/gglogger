@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="index.html">gglogger</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.7</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -174,7 +174,7 @@ Now
 <div class="section level2">
 <h2 id="limitations">Limitations<a class="anchor" aria-label="anchor" href="#limitations"></a>
 </h2>
-<p><code>gglogger</code> cannot log the global settings used to create a plot, such as <code><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">theme_set()</a></code>. It can only log the calls used directly to create the plot itself. You may need to manually set these global settings when reproducing a plot, or prepare them using the <code>setup</code> argument in <code>gen_code()</code>.</p>
+<p><code>gglogger</code> cannot log the global settings used to create a plot, such as <code><a href="https://ggplot2.tidyverse.org/reference/get_theme.html" class="external-link">theme_set()</a></code>. It can only log the calls used directly to create the plot itself. You may need to manually set these global settings when reproducing a plot, or prepare them using the <code>setup</code> argument in <code>gen_code()</code>.</p>
 <p>If your data is piped to <code>ggplot</code> function, you need to use <code>|&gt;</code> instead of <code>%&gt;%</code>, otherwise the data will be logged as <code>.</code>.</p>
 </div>
 </div>
