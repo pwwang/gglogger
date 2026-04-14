@@ -45,7 +45,7 @@ jobs:
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
           cache-version: 2
-          extra-packages: any::devtools, any::pkgdown, any::ggplot2
+          extra-packages: any::remotes, any::devtools, any::pkgdown, any::ggplot2
 
       - uses: r-lib/actions/check-r-package@v2
 
