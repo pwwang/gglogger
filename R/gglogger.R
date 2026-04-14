@@ -90,6 +90,9 @@ register <- function(f, name = NULL) {
   fn <- deparse(substitute(f))
   function(...) {
     p <- f(...)
+    if (!inherits(p, "ggplot")) {
+      return(p)
+    }
     if (is.null(p$logs)) p$logs <- GGLogs$new(logs = list())
 
     call <- substitute(f(...))

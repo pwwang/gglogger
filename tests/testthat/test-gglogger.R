@@ -136,6 +136,14 @@ test_that("gglogger register works", {
     expect_equal(p$logs$stringify(), "myggplot(ggplot2::mpg)")
 })
 
+test_that("gglogger register works with function not returning ggplot", {
+    myfun <- function(x) {
+        x + 1
+    }
+    myfun2 <- gglogger::register(myfun)
+    expect_equal(myfun2(1), 2)
+})
+
 # test warning about piping data using %>%
 test_that("gglogger warns about piping data using %>%", {
     p <- expect_warning(ggplot2::mpg %>% ggplot() + geom_point(), "'.' is detected")
