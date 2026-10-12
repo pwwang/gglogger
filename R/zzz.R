@@ -12,7 +12,11 @@
 
         suppressMessages(
             S7::method(`+`, list(class_ggplot, S7::class_any)) <- function(e1, e2) {
-                e2name <- deparse(substitute(e2, env = rlang::caller_env(2)))
+                e2name <- deparse(if (utils::packageVersion("S7") > "0.2.2") {
+                    substitute(e2)
+                } else {
+                    substitute(e2, env = rlang::caller_env(2))
+                })
                 add_ggplot <- utils::getFromNamespace("add_ggplot", "ggplot2")
                 p <- add_ggplot(e1, e2, e2name)
                 if (!is.null(e1$logs)) {
@@ -26,7 +30,11 @@
 
         suppressMessages(
             S7::method(`+`, list(class_theme, S7::class_any)) <- function(e1, e2) {
-                e2name <- deparse(substitute(e2, env = rlang::caller_env(2)))
+                e2name <- deparse(if (utils::packageVersion("S7") > "0.2.2") {
+                    substitute(e2)
+                } else {
+                    substitute(e2, env = rlang::caller_env(2))
+                })
                 add_theme <- utils::getFromNamespace("add_theme", "ggplot2")
                 p <- add_theme(e1, e2, e2name)
                 if (!is.null(e1$logs)) {
