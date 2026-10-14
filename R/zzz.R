@@ -45,6 +45,11 @@
                 return(p)
             }
         )
+        if ("S7_on_load" %in% getNamespaceExports("S7")) {
+            S7::S7_on_load()
+        } else {
+            S7::methods_register()
+        }
     }
 }
 
@@ -52,4 +57,16 @@
     if (utils::packageVersion("ggplot2") > "3.5.2") {
         packageStartupMessage("Overwriting method +(<ggplot2::ggplot/ggplot2::theme>, <ANY>)")
     }
+}
+
+.onUnload <- function(...) {
+    if (utils::packageVersion("ggplot2") > "3.5.2" &&
+        "S7_on_unload" %in% getNamespaceExports("S7")) {
+        S7::S7_on_unload()
+    }
+}
+
+if (utils::packageVersion("ggplot2") > "3.5.2" &&
+    "S7_on_build" %in% getNamespaceExports("S7")) {
+    S7::S7_on_build()
 }
