@@ -11,7 +11,7 @@
         log <- GGLog$new(code = e2name)
         p$logs$add(log)
     }
-    return(p)
+    p
 }
 
 .add_theme <- function(e1, e2) {
@@ -27,7 +27,7 @@
         log <- GGLog$new(code = e2name)
         p$logs$add(log)
     }
-    return(p)
+    p
 }
 
 # Record whether this installation could declare methods using external classes.
