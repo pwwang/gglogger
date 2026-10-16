@@ -35,8 +35,8 @@
     "new_external_class" %in% getNamespaceExports("S7")
 
 if (.S7_methods_declared) {
-    class_ggplot <- S7::new_external_class("ggplot2", "class_ggplot", version = "4.0.0")
-    class_theme <- S7::new_external_class("ggplot2", "class_theme", version = "4.0.0")
+    class_ggplot <- getExportedValue("S7", "new_external_class")("ggplot2", "class_ggplot", version = "4.0.0")
+    class_theme <- getExportedValue("S7", "new_external_class")("ggplot2", "class_theme", version = "4.0.0")
     S7::method(`+`, list(class_ggplot, S7::class_any)) <- .add_ggplot
     S7::method(`+`, list(class_theme, S7::class_any)) <- .add_theme
 }
@@ -65,7 +65,7 @@ if (.S7_methods_declared) {
             )
         }
         if (has_S7_hooks) {
-            suppressMessages(S7::S7_on_load())
+            suppressMessages(getExportedValue("S7", "S7_on_load")())
         }
     }
 }
@@ -79,10 +79,10 @@ if (.S7_methods_declared) {
 .onUnload <- function(...) {
     if (utils::packageVersion("ggplot2") > "3.5.2" &&
         "S7_on_unload" %in% getNamespaceExports("S7")) {
-        S7::S7_on_unload()
+        getExportedValue("S7", "S7_on_unload")()
     }
 }
 
 if (.S7_methods_declared) {
-    S7::S7_on_build()
+    getExportedValue("S7", "S7_on_build")()
 }
