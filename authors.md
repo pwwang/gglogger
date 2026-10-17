@@ -11,12 +11,12 @@ Source:
 [`DESCRIPTION`](https://github.com/pwwang/gglogger/blob/master/DESCRIPTION)
 
 Wang P (2026). *gglogger: Track 'ggplot2' Calls*. R package version
-0.1.8, <https://github.com/pwwang/gglogger/>.
+0.1.9, <https://github.com/pwwang/gglogger/>.
 
     @Manual{,
       title = {gglogger: Track 'ggplot2' Calls},
       author = {Panwen Wang},
       year = {2026},
-      note = {R package version 0.1.8},
+      note = {R package version 0.1.9},
       url = {https://github.com/pwwang/gglogger/},
     }
